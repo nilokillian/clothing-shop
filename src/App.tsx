@@ -1,6 +1,10 @@
 import React from "react";
-import { HomePage } from "./homePage.component";
+import { HomePage } from "./pages/homepage/homePage.component";
 
-export const App = () => {
+import "./App.css";
+
+function App() {
   return <HomePage />;
-};
+}
+
+export default App;
