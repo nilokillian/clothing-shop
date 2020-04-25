@@ -13,3 +13,21 @@ export interface IMenuItemProps {
 export interface IDirectoryState {
   sections: IMenuItem[];
 }
+
+export interface ICollection {
+  id: number;
+  title: string;
+  routeName: string;
+  items: IItemCollection[];
+}
+
+export interface IItemCollection {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
+
+export interface IShopPageState {
+  collection: ICollection[];
+}

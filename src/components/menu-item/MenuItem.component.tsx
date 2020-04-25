@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { IMenuItemProps } from "../../utils/interfaces";
 
-import "./menu-item.style.scss";
+import "./menuItem.style.scss";
 
 const MenuItem: React.FC<IMenuItemProps & RouteComponentProps> = ({
   item,
