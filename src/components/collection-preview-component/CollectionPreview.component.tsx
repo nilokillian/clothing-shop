@@ -15,7 +15,7 @@ const CollectionPreview: React.FC<ICollection> = ({
       <h1 className="title">{title.toUpperCase()}</h1>
       <div className="preview">
         {items
-          .filter((item, i) => i < 4)
+          .filter((_item, i) => i < 4)
           .map((item) => (
             <CollectionItem {...item} />
           ))}
