@@ -2,7 +2,7 @@ import React from "react";
 import FormInput from "../form-input/FormInput.component";
 import { ISingInState } from "../../utils/interfaces";
 import CustomButton from "../custom-button/CustomButton.component";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import "./singIn.style.scss";
 
 class SingIn extends React.Component<{}, ISingInState> {
@@ -15,13 +15,23 @@ class SingIn extends React.Component<{}, ISingInState> {
     };
   }
 
-  private handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  private handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
+
+    const { email, password } = this.state;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.log(error);
+    }
 
     this.setState({ email: "", password: "" });
   };
 
-  private handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = event.target;
 
     this.setState({ [name]: value } as any);

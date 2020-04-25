@@ -15,7 +15,7 @@ const FormInput: React.FC<IFormInput> = ({
         <label
           className={`${
             otherProps.value && otherProps.value.length ? "shrink" : ""
-          }form-input-label`}
+          } form-input-label`}
         >
           {label}
         </label>

@@ -37,7 +37,6 @@ const App = (): JSX.Element => {
     });
 
     return () => {
-      console.log("unsubscibeFromAuth");
       unsubscibeFromAuth();
     };
   }, []);
