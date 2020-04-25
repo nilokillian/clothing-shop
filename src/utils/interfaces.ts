@@ -1,3 +1,5 @@
+import { User } from "firebase";
+
 export interface IMenuItem {
   id: number;
   title: string;
@@ -30,4 +32,24 @@ export interface IItemCollection {
 
 export interface IShopPageState {
   collection: ICollection[];
+}
+
+export interface IFormInput {
+  label: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  [prop: string]: any;
+}
+
+export interface ISingInState {
+  email: string;
+  password: string;
+}
+
+export interface ICustomButtonProps {
+  isGoogleSignIn?: boolean;
+  [otherProps: string]: any;
+}
+
+export interface IHeader {
+  currentUser: User | null | undefined;
 }
