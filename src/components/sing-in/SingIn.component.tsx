@@ -1,10 +1,9 @@
 import React from "react";
 import FormInput from "../form-input/FormInput.component";
 import { ISingInState } from "../../utils/interfaces";
-
-import "./singIn.style.scss";
 import CustomButton from "../custom-button/CustomButton.component";
 import { signInWithGoogle } from "../../firebase/firebase.utils";
+import "./singIn.style.scss";
 
 class SingIn extends React.Component<{}, ISingInState> {
   constructor(props: any) {
@@ -32,7 +31,7 @@ class SingIn extends React.Component<{}, ISingInState> {
     const { email, password } = this.state;
     return (
       <div className="sing-in">
-        <h2>I alredy have an account</h2>
+        <h2 className="title">I alredy have an account</h2>
         <span>Sing in with your email and password</span>
         <form onSubmit={this.handleSubmit}>
           <FormInput

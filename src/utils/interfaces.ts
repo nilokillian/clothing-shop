@@ -51,5 +51,9 @@ export interface ICustomButtonProps {
 }
 
 export interface IHeader {
-  currentUser: User | null | undefined;
+  currentUser: any;
+}
+
+export interface ISignUpState {
+  [props: string]: any;
 }
