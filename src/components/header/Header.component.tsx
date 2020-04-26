@@ -1,11 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./header.style.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
-import { IHeader } from "../../utils/interfaces";
+import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
+import { connect } from "react-redux";
+import { IUserState } from "../../interfaces-and-types/user/IUserState";
+import { IHeader } from "../../interfaces-and-types/header/IHeader";
+import { IMapStateToProps } from "../../interfaces-and-types/redux/IRedux";
+
+import "./header.style.scss";
 
 const Header: React.FC<IHeader> = ({ currentUser }): JSX.Element => {
+  console.log("currentUser", currentUser);
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -32,4 +37,10 @@ const Header: React.FC<IHeader> = ({ currentUser }): JSX.Element => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: IMapStateToProps): IUserState => {
+  console.log("state", state);
+
+  return { currentUser: state.user.currentUser };
+};
+
+export default connect(mapStateToProps)(Header);

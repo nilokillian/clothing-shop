@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import FormInput from "../form-input/FormInput.component";
 import CustomButton from "../custom-button/CustomButton.component";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
-import { ISignUpState } from "../../utils/interfaces";
+import { ISingUpState } from "../../interfaces-and-types/sing-up/ISingUpState";
 
 import "./singUp.style.scss";
 
 const SignUp = (): JSX.Element => {
-  const [inputs, setInputs] = useState<ISignUpState>({
+  const [inputs, setInputs] = useState<ISingUpState>({
     displayName: "",
     email: "",
     password: "",

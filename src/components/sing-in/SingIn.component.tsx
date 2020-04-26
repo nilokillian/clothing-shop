@@ -1,8 +1,9 @@
 import React from "react";
 import FormInput from "../form-input/FormInput.component";
-import { ISingInState } from "../../utils/interfaces";
 import CustomButton from "../custom-button/CustomButton.component";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { ISingInState } from "../../interfaces-and-types/sing-in/ISingInState";
+
 import "./singIn.style.scss";
 
 class SingIn extends React.Component<{}, ISingInState> {

@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { IMenuItemProps } from "../../utils/interfaces";
+import { IMenuItemProps } from "../../interfaces-and-types/menu/IMenu";
 
 import "./menuItem.style.scss";
 

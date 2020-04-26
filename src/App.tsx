@@ -7,17 +7,10 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/SignInAndSignU
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import "./App.css";
-
-export interface ICurrentUser {
-  id: string;
-  displayName: string;
-  email: string;
-  createdAt: string;
-  [others: string]: any;
-}
+import { IUser } from "./interfaces-and-types/user/IUser";
 
 const App = (): JSX.Element => {
-  const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     const unsubscibeFromAuth = auth.onAuthStateChanged((userAuth) => {
@@ -27,7 +20,7 @@ const App = (): JSX.Element => {
             const userData = snapShot.data();
             setCurrentUser({
               id: snapShot.id,
-              ...(userData as ICurrentUser),
+              ...(userData as IUser),
             });
           });
         });
@@ -43,7 +36,7 @@ const App = (): JSX.Element => {
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />

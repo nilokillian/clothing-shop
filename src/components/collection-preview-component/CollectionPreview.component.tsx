@@ -1,8 +1,6 @@
 import React from "react";
-
-import "./CollectionPreview.style.scss";
-import { ICollection } from "../../utils/interfaces";
 import CollectionItem from "../collection-item/CollectionItem.component";
+import { ICollection } from "../../interfaces-and-types/collection/ICollection";
 
 import "./CollectionPreview.style.scss";
 

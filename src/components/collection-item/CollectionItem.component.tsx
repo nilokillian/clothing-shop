@@ -1,5 +1,5 @@
 import React from "react";
-import { IItemCollection } from "../../utils/interfaces";
+import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
 
 import "./collectionItem.style.scss";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { IFormInput } from "../../utils/interfaces";
+import { IFormInput } from "../../interfaces-and-types/form-input/IFormInput";
 
 import "./formInput.style.scss";
 
