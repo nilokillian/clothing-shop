@@ -3,5 +3,5 @@ import { UserActionTypes } from "./IUserActionTypes";
 
 export interface IUserReducerAction {
   type: UserActionTypes;
-  payload: IUser;
+  payload: IUser | null;
 }
