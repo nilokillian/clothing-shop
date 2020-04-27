@@ -1,6 +1,8 @@
-import { IUserState } from "../../interfaces-and-types/user/IUserState";
-import { IUserReducerAction } from "../../interfaces-and-types/user/IUserReducerAction";
-import { UserActionTypes } from "../../interfaces-and-types/user/IUserActionTypes";
+import {
+  IUserState,
+  IUserReducerAction,
+  UserActionTypes,
+} from "../../interfaces-and-types/user/IUser";
 
 const INITIAL_STATE = {
   currentUser: null,

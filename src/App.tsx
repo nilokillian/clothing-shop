@@ -1,25 +1,23 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
+import React, { useEffect, Dispatch } from "react";
+import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/home-page/HomePage.component";
 import ShopPage from "./pages/shop-page/ShopPage.component";
 import Header from "./components/header/Header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/SignInAndSignUp.component";
-import { IUser } from "./interfaces-and-types/user/IUser";
+import { IUser, IUserReducerAction } from "./interfaces-and-types/user/IUser";
 import { setCurrentUser } from "./redux/user/userActions";
-import { IUserReducerAction } from "./interfaces-and-types/user/IUserReducerAction";
-import { IMapStateToProps } from "./interfaces-and-types/redux/IRedux";
+import { IRoot } from "./interfaces-and-types/redux/IRedux";
+import {
+  IAppStateToProps,
+  ConnectedAppStateToProps,
+  ConnectedAppDispatchToProps,
+} from "./interfaces-and-types/app/IApp";
 
 import "./App.css";
 
-export interface IAppProps {
-  setCurrentUser: (user: IUser | null) => IUserReducerAction;
-  currentUser: IUser;
-}
-
-const App: React.FC<IAppProps> = ({
+const App: React.FC<IAppStateToProps> = ({
   setCurrentUser,
   currentUser,
 }): JSX.Element => {
@@ -44,7 +42,7 @@ const App: React.FC<IAppProps> = ({
       unsubscibeFromAuth();
     };
   }, [setCurrentUser]);
-
+  console.log("currentUser", currentUser);
   return (
     <div>
       <Header />
@@ -53,7 +51,7 @@ const App: React.FC<IAppProps> = ({
         <Route exact path="/shop" component={ShopPage} />
         <Route
           exact
-          path="/singin"
+          path="/signin"
           render={() =>
             currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
           }
@@ -63,14 +61,15 @@ const App: React.FC<IAppProps> = ({
   );
 };
 
-const mapStateToProps = (state: IMapStateToProps) => {
-  return {
-    currentUser: state.user.currentUser,
-  };
-};
+const mapStateToProps: MapStateToProps<ConnectedAppStateToProps, {}, IRoot> = ({
+  user: { currentUser },
+}): ConnectedAppStateToProps => ({ currentUser });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setCurrentUser: (user: IUser | null) => dispatch(setCurrentUser(user)),
+const mapDispatchToProps: MapDispatchToProps<
+  ConnectedAppDispatchToProps,
+  {}
+> = (dispatch: Dispatch<IUserReducerAction>): ConnectedAppDispatchToProps => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

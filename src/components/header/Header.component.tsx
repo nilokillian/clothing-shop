@@ -2,15 +2,19 @@ import React from "react";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
-import { connect } from "react-redux";
-import { IUserState } from "../../interfaces-and-types/user/IUserState";
-import { IHeader } from "../../interfaces-and-types/header/IHeader";
-import { IMapStateToProps } from "../../interfaces-and-types/redux/IRedux";
+import { connect, MapStateToProps } from "react-redux";
+import { IRoot } from "../../interfaces-and-types/redux/IRedux";
+import CartIcon from "../cart-icon/CartIcon.component";
+import CartDropDown from "../cart-dropdown/CartDropDown.component";
+import { IHeaderStateProps } from "../../interfaces-and-types/header/IHeader";
 
 import "./header.style.scss";
 
-const Header: React.FC<IHeader> = ({ currentUser }): JSX.Element => {
-  console.log("currentUser", currentUser);
+const Header: React.FC<IHeaderStateProps> = ({
+  currentUser,
+  hidden,
+}): JSX.Element => {
+  console.log("hidden", hidden);
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -32,15 +36,18 @@ const Header: React.FC<IHeader> = ({ currentUser }): JSX.Element => {
             SING IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {!hidden ? <CartDropDown /> : null}
     </div>
   );
 };
 
-const mapStateToProps = (state: IMapStateToProps): IUserState => {
-  console.log("state", state);
-
-  return { currentUser: state.user.currentUser };
-};
+const mapStateToProps: MapStateToProps<IHeaderStateProps, {}, IRoot> = (
+  state: IRoot
+): IHeaderStateProps => ({
+  currentUser: state.user.currentUser,
+  hidden: state.cart.hidden,
+});
 
 export default connect(mapStateToProps)(Header);

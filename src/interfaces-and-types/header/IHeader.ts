@@ -1,5 +1,6 @@
 import { IUser } from "../user/IUser";
 
-export interface IHeader {
+export interface IHeaderStateProps {
   currentUser: IUser | null;
+  hidden: boolean;
 }
