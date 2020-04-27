@@ -7,6 +7,9 @@ import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 import CartIcon from "../cart-icon/CartIcon.component";
 import CartDropDown from "../cart-dropdown/CartDropDown.component";
 import { IHeaderStateProps } from "../../interfaces-and-types/header/IHeader";
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../../redux/cart/cartSelectors";
+import { selectCurrentUser } from "../../redux/user/userSelectors";
 
 import "./header.style.scss";
 
@@ -40,11 +43,22 @@ const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
   );
 };
 
-const mapStateToProps: MapStateToProps<IHeaderStateProps, {}, IRoot> = (
-  state: IRoot
-): IHeaderStateProps => ({
-  currentUser: state.user.currentUser,
-  hidden: state.cart.hidden,
+const mapStateToProps: MapStateToProps<
+  IHeaderStateProps,
+  {},
+  IRoot
+> = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
-export default connect(mapStateToProps)(Header);
+// const mapStateToProps: MapStateToProps<IHeaderStateProps, {}, IRoot> = (
+//   state: IRoot
+// ): IHeaderStateProps => ({
+//   currentUser: state.user.currentUser,
+//   hidden: state.cart.hidden,
+// });
+
+export default connect<IHeaderStateProps, {}, {}, IRoot>(mapStateToProps)(
+  Header
+);

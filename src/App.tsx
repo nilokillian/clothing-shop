@@ -14,6 +14,8 @@ import {
   ConnectedAppStateToProps,
   ConnectedAppDispatchToProps,
 } from "./interfaces-and-types/app/IApp";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "./redux/user/userSelectors";
 
 import "./App.css";
 
@@ -61,9 +63,17 @@ const App: React.FC<IAppStateToProps> = ({
   );
 };
 
-const mapStateToProps: MapStateToProps<ConnectedAppStateToProps, {}, IRoot> = ({
-  user: { currentUser },
-}): ConnectedAppStateToProps => ({ currentUser });
+const mapStateToProps: MapStateToProps<
+  ConnectedAppStateToProps,
+  {},
+  IRoot
+> = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+// const mapStateToProps: MapStateToProps<ConnectedAppStateToProps, {}, IRoot> = ({
+//   user: { currentUser },
+// }): ConnectedAppStateToProps => ({ currentUser });
 
 const mapDispatchToProps: MapDispatchToProps<
   ConnectedAppDispatchToProps,
