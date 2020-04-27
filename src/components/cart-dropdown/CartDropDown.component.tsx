@@ -1,16 +1,35 @@
 import React from "react";
+import { connect, MapStateToProps } from "react-redux";
 import CustomButton from "../custom-button/CustomButton.component";
+import CartItem from "../cart-item/CartItem.component";
 
 import "./cartDropDown.style.scss";
+import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
+import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 
-const CartDropDown = (): JSX.Element => {
+interface CartDropDownStateProps {
+  cartItems: IItemCollection[];
+}
+
+const CartDropDown: React.FC<CartDropDownStateProps> = ({
+  cartItems,
+}): JSX.Element => {
   return (
     <div className="cart-dropdown">
-      <div className="cart-items" />
-
+      <div className="cart-items">
+        {cartItems.map((cartItem) => (
+          <CartItem key={cartItem.id} {...cartItem} />
+        ))}
+      </div>
       <CustomButton>GO TO CHECKOUT</CustomButton>
     </div>
   );
 };
 
-export default CartDropDown;
+// type ConnectedStateToProps = CartDropDownStateProps;
+
+const mapStateToProps: MapStateToProps<CartDropDownStateProps, {}, IRoot> = ({
+  cart: { cartItems },
+}): CartDropDownStateProps => ({ cartItems });
+
+export default connect(mapStateToProps)(CartDropDown);
