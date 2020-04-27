@@ -10,10 +10,7 @@ import { IHeaderStateProps } from "../../interfaces-and-types/header/IHeader";
 
 import "./header.style.scss";
 
-const Header: React.FC<IHeaderStateProps> = ({
-  currentUser,
-  hidden,
-}): JSX.Element => {
+const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
   console.log("hidden", hidden);
   return (
     <div className="header">

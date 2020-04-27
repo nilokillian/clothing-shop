@@ -3,9 +3,11 @@ import {
   CartActionTypes,
   ICartReducerAction,
 } from "../../interfaces-and-types/cart/ICart";
+import { addItemToCart } from "./cartUtils";
 
 const INITIAL_STATE = {
-  hidden: false,
+  hidden: true,
+  cartItems: [],
 };
 
 export const cartReducer = (
@@ -17,6 +19,11 @@ export const cartReducer = (
       return {
         ...state,
         hidden: !state.hidden,
+      };
+    case CartActionTypes.ADD_ITEM:
+      return {
+        ...state,
+        cartItems: addItemToCart(state.cartItems, action.payload!),
       };
 
     default:

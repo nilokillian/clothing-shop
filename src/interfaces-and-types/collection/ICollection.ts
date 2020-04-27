@@ -3,6 +3,15 @@ export interface IItemCollection {
   name: string;
   imageUrl: string;
   price: number;
+  [props: string]: any;
+}
+
+export interface IItemCart {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+  quantity: number;
 }
 
 export interface ICollection {
@@ -11,3 +20,14 @@ export interface ICollection {
   routeName: string;
   items: IItemCollection[];
 }
+
+export interface CollectionItemOwnProps {
+  item: IItemCollection;
+}
+
+export interface CollectionItemDispatchProps {
+  addItem: (item: IItemCollection) => void;
+}
+
+export type CollectionItemProps = CollectionItemDispatchProps &
+  CollectionItemOwnProps;
