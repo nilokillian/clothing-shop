@@ -21,6 +21,7 @@ export interface ICartActionTypes {
 
 export interface ICartIconStateToProps {
   toggleCartHidden: () => void;
+  itemsCount: number;
 }
 
 export type ConnectedCartIconDispatchToProps = Pick<
