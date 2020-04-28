@@ -1,34 +1,49 @@
 import React from "react";
-import { connect, MapStateToProps } from "react-redux";
+import { connect, MapStateToProps, DispatchProp } from "react-redux";
 import CustomButton from "../custom-button/CustomButton.component";
 import CartItem from "../cart-item/CartItem.component";
 import { selectCartItems } from "../../redux/cart/cartSelectors";
 import { createStructuredSelector } from "reselect";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import "./cartDropDown.style.scss";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
+
+import "./cartDropDown.style.scss";
+import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
+import { toggleCartHidden } from "../../redux/cart/cartActions";
 
 interface CartDropDownStateProps {
   cartItems: IItemCollection[];
 }
 
-const CartDropDown: React.FC<CartDropDownStateProps> = ({
-  cartItems,
-}): JSX.Element => {
+const CartDropDown: React.FC<
+  CartDropDownStateProps &
+    RouteComponentProps &
+    DispatchProp<ICartReducerAction>
+> = ({ cartItems, history, dispatch }): JSX.Element => {
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} {...cartItem} />
-        ))}
+        {cartItems.length ? (
+          cartItems.map((cartItem) => (
+            <CartItem key={cartItem.id} {...cartItem} />
+          ))
+        ) : (
+          <span className="empty-message ">Your cart is empty</span>
+        )}
       </div>
-      <CustomButton>GO TO CHECKOUT</CustomButton>
+      <CustomButton
+        onClick={() => {
+          history.push("/checkout");
+          dispatch(toggleCartHidden());
+        }}
+      >
+        GO TO CHECKOUT
+      </CustomButton>
     </div>
   );
 };
-
-// type ConnectedStateToProps = CartDropDownStateProps;
 
 const mapStateToProps: MapStateToProps<
   CartDropDownStateProps,
@@ -42,4 +57,4 @@ const mapStateToProps: MapStateToProps<
 //   state
 // ): CartDropDownStateProps => ({ cartItems: selectCartItems(state) });
 
-export default connect(mapStateToProps)(CartDropDown);
+export default withRouter(connect(mapStateToProps)(CartDropDown));

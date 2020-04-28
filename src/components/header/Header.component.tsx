@@ -14,7 +14,6 @@ import { selectCurrentUser } from "../../redux/user/userSelectors";
 import "./header.style.scss";
 
 const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
-  console.log("hidden", hidden);
   return (
     <div className="header">
       <Link className="logo-container" to="/">

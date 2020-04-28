@@ -1,21 +1,25 @@
 import React, { useEffect, Dispatch } from "react";
 import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { setCurrentUser } from "./redux/user/userActions";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "./redux/user/userSelectors";
 import { Route, Switch, Redirect } from "react-router-dom";
+
 import HomePage from "./pages/home-page/HomePage.component";
 import ShopPage from "./pages/shop-page/ShopPage.component";
-import Header from "./components/header/Header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/SignInAndSignUp.component";
+import CheckOutPage from "./pages/check-out-page/CheckOut.component";
+
+import Header from "./components/header/Header.component";
+
 import { IUser, IUserReducerAction } from "./interfaces-and-types/user/IUser";
-import { setCurrentUser } from "./redux/user/userActions";
 import { IRoot } from "./interfaces-and-types/redux/IRedux";
 import {
   IAppStateToProps,
   ConnectedAppStateToProps,
   ConnectedAppDispatchToProps,
 } from "./interfaces-and-types/app/IApp";
-import { createStructuredSelector } from "reselect";
-import { selectCurrentUser } from "./redux/user/userSelectors";
 
 import "./App.css";
 
@@ -44,13 +48,14 @@ const App: React.FC<IAppStateToProps> = ({
       unsubscibeFromAuth();
     };
   }, [setCurrentUser]);
-  console.log("currentUser", currentUser);
+
   return (
     <div>
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckOutPage} />
         <Route
           exact
           path="/signin"
