@@ -1,14 +1,12 @@
 import { SHOP_DATA } from "../../pages/shop-page/mockData";
-import { IShopPageState } from "../../interfaces-and-types/shop-page/IShopPageState";
+import { ICollections } from "../../interfaces-and-types/collection/ICollection";
 
-const INITIAL_STATE: IShopPageState = {
-  collection: SHOP_DATA.collection,
-};
+const INITIAL_STATE: ICollections = SHOP_DATA;
 
 export const shopReducer = (
   state = INITIAL_STATE,
   action: any
-): IShopPageState => {
+): ICollections => {
   switch (action.type) {
     default:
       return state;

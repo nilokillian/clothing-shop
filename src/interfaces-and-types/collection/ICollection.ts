@@ -14,6 +14,14 @@ export interface IItemCart {
   quantity: number;
 }
 
+export interface ICollections {
+  collections: { [key: string]: ICollection };
+}
+
+export interface ICollectionsForPreview {
+  collections: ICollection[];
+}
+
 export interface ICollection {
   id: number;
   title: string;

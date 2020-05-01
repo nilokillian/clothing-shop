@@ -1,10 +1,21 @@
 import { createSelector } from "reselect";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
-import { IShopPageState } from "../../interfaces-and-types/shop-page/IShopPageState";
+import { ICollections } from "../../interfaces-and-types/collection/ICollection";
 
-const selectShop = (state: IRoot): IShopPageState => state.shop;
+const selectShop = (state: IRoot): ICollections => state.shop;
 
-export const selectShopItems = createSelector(
+export const selectCollections = createSelector(
   [selectShop],
-  (shopItems) => shopItems.collection
+  (shop) => shop.collections
 );
+
+export const selectCollectionsForPreview = createSelector(
+  [selectCollections],
+  (collections) => Object.keys(collections).map((key) => collections[key])
+);
+
+export const selectCollection = (collectionUrlParam: string) =>
+  createSelector(
+    [selectCollections],
+    (collections) => collections[collectionUrlParam]
+  );
