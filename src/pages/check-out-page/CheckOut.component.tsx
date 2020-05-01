@@ -9,6 +9,7 @@ import "./checkOut-style.scss";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
 import CheckOutItem from "../../components/checkout-item/CheckOutItem.component";
+import StripeCheckoutButton from "../../components/stripe-button/StripeButton.component";
 
 export interface CheckOutPageStateToProps {
   cartItems: IItemCollection[];
@@ -48,6 +49,13 @@ const CheckOutPage: React.FC<CheckOutPageStateToProps> = ({
       <div className="total">
         <span>TOTAL : ${total}</span>
       </div>
+
+      <div className="test-warning">
+        *Please you the following test credit card fro payments
+        <br />
+        4242 4242 4242 4242 - Expiry : 01/21 - CVV: 123
+      </div>
+      <StripeCheckoutButton price={total} />
     </div>
   );
 };
