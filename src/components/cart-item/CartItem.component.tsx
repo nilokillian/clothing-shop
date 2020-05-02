@@ -1,16 +1,16 @@
 import React from "react";
-
-import "./cartItem.style.scss";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
+
+import styles from "./cartItem.module.scss";
 
 const CartItem: React.FC<IItemCollection> = (item): JSX.Element => {
   const { name, imageUrl, price, quantity } = item;
   return (
-    <div className="cart-item">
+    <div className={styles.cartItem}>
       <img src={imageUrl} alt="item" />
-      <div className="item-details">
-        <span className="name">{name}</span>
-        <span className="price">
+      <div className={styles.details}>
+        <span className={styles.name}>{name}</span>
+        <span className={styles.price}>
           {quantity} x ${price}
         </span>
       </div>

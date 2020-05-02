@@ -11,27 +11,27 @@ import { createStructuredSelector } from "reselect";
 import { selectCartHidden } from "../../redux/cart/cartSelectors";
 import { selectCurrentUser } from "../../redux/user/userSelectors";
 
-import "./header.style.scss";
+import styles from "./header.module.scss";
 
 const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <div className={styles.container}>
+      <Link className={styles.logoContainer} to="/">
         <Logo className="logo" />
       </Link>
-      <div className="options">
-        <Link className="option" to="shop">
+      <div className={styles.options}>
+        <Link className={styles.option} to="/shop">
           SHOP
         </Link>
-        <Link className="option" to="shop">
+        <Link className={styles.option} to="shop">
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div className={styles.option} onClick={() => auth.signOut()}>
             SIGN OUT
           </div>
         ) : (
-          <Link className="option" to="/signin">
+          <Link className={styles.option} to="/signin">
             SING IN
           </Link>
         )}

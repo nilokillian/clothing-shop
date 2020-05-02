@@ -1,11 +1,11 @@
 import React from "react";
 import Directory from "../../components/directory/Directory";
 
-import styles from "./homePage.module.scss";
+import style from "./homePage.module.scss";
 
 const HomePage: React.FC = (): JSX.Element => {
   return (
-    <div className={styles.homePapeContainer}>
+    <div className={style.container}>
       <Directory />
     </div>
   );

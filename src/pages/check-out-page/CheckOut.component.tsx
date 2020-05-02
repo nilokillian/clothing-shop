@@ -5,7 +5,7 @@ import {
   selectCartItems,
   selectCartTotal,
 } from "../../redux/cart/cartSelectors";
-import "./checkOut-style.scss";
+import styles from "./checkOut.module.scss";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
 import CheckOutItem from "../../components/checkout-item/CheckOutItem.component";
@@ -21,36 +21,36 @@ const CheckOutPage: React.FC<CheckOutPageStateToProps> = ({
   total,
 }): JSX.Element => {
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.headerBlock}>
           <span>Product</span>
         </div>
 
-        <div className="header-block">
+        <div className={styles.headerBlock}>
           <span>Description</span>
         </div>
 
-        <div className="header-block">
+        <div className={styles.headerBlock}>
           <span>Quantity</span>
         </div>
 
-        <div className="header-block">
+        <div className={styles.headerBlock}>
           <span>Price</span>
         </div>
 
-        <div className="header-block">
+        <div className={styles.headerBlock}>
           <span>Remove</span>
         </div>
       </div>
       {cartItems.map((cartItem) => (
         <CheckOutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className="total">
+      <div className={styles.total}>
         <span>TOTAL : ${total}</span>
       </div>
 
-      <div className="test-warning">
+      <div className={styles.testWarning}>
         *Please you the following test credit card fro payments
         <br />
         4242 4242 4242 4242 - Expiry : 01/21 - CVV: 123

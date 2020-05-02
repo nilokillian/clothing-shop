@@ -10,16 +10,16 @@ import {
   ICartIconStateToProps,
   ConnectedCartIconDispatchToProps,
 } from "../../interfaces-and-types/cart/ICart";
-import "./cartIcon.style.scss";
+import styles from "./cartIcon.module.scss";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 
 const CartIcon: React.FC<ICartIconStateToProps> = ({
   toggleCartHidden,
   itemsCount,
 }): JSX.Element => (
-  <div className="cart-icon" onClick={toggleCartHidden}>
-    <ShoppingIcon className="shopping-icon" />
-    <span className="item-count">{itemsCount}</span>
+  <div className={styles.cartIcon} onClick={toggleCartHidden}>
+    <ShoppingIcon className={styles.shoppingIcon} />
+    <span className={styles.itemCount}>{itemsCount}</span>
   </div>
 );
 

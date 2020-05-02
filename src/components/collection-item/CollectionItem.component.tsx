@@ -8,20 +8,27 @@ import {
   CollectionItemOwnProps,
 } from "../../interfaces-and-types/collection/ICollection";
 import { addItem } from "../../redux/cart/cartActions";
-import "./collectionItem.style.scss";
+import styles from "./collectionItem.module.scss";
 import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ item, addItem }) => {
   const { imageUrl, name, price } = item;
 
   return (
-    <div className="collection-item">
-      <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
-      <div className="collection-footer">
-        <span className="name">{name}</span>
-        <span className="price">{price}</span>
+    <div className={styles.item}>
+      <div
+        className={styles.image}
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      />
+      <div className={styles.footer}>
+        <span className={styles.name}>{name}</span>
+        <span className={styles.price}>{price}</span>
       </div>
-      <CustomButton inverted onClick={() => addItem(item)}>
+      <CustomButton
+        inverted
+        customStyle={styles.customButton}
+        onClick={() => addItem(item)}
+      >
         Add to cart
       </CustomButton>
     </div>

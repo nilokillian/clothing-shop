@@ -4,7 +4,7 @@ import CustomButton from "../custom-button/CustomButton.component";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import { ISingInState } from "../../interfaces-and-types/sing-in/ISingInState";
 
-import "./singIn.style.scss";
+import styles from "./singIn.module.scss";
 
 class SingIn extends React.Component<{}, ISingInState> {
   constructor(props: any) {
@@ -41,8 +41,8 @@ class SingIn extends React.Component<{}, ISingInState> {
   public render() {
     const { email, password } = this.state;
     return (
-      <div className="sing-in">
-        <h2 className="title">I alredy have an account</h2>
+      <div className={styles.container}>
+        <h2 className={styles.title}>I alredy have an account</h2>
         <span>Sing in with your email and password</span>
         <form onSubmit={this.handleSubmit}>
           <FormInput
@@ -62,7 +62,7 @@ class SingIn extends React.Component<{}, ISingInState> {
             required
             handleChange={this.handleChange}
           />
-          <div className="buttons">
+          <div className={styles.buttons}>
             <CustomButton type="submit">SING IN</CustomButton>
             <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
               Sign in with Google

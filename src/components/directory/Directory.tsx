@@ -5,12 +5,12 @@ import { connect, MapStateToProps } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectDirectorySections } from "../../redux/directory/directoySelectors";
 
-import "./directory.styles.scss";
+import styles from "./directory.module.scss";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 
 const Directory: React.FC<IDirectoryState> = ({ sections }) => {
   return (
-    <div className="directory-menu">
+    <div className={styles.container}>
       {sections.map((section) => (
         <MenuItem key={"sln_" + section.id} item={section} />
       ))}

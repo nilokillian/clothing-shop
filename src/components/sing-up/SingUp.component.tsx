@@ -4,9 +4,9 @@ import CustomButton from "../custom-button/CustomButton.component";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { ISingUpState } from "../../interfaces-and-types/sing-up/ISingUpState";
 
-import "./singUp.style.scss";
+import styles from "./singUp.module.scss";
 
-const SignUp = (): JSX.Element => {
+const SignUp: React.FC = (): JSX.Element => {
   const [inputs, setInputs] = useState<ISingUpState>({
     displayName: "",
     email: "",
@@ -50,8 +50,8 @@ const SignUp = (): JSX.Element => {
   };
 
   return (
-    <div className="sign-up">
-      <span>Sing up with your email and password</span>
+    <div className={styles.container}>
+      <span className={styles.title}>Sing up with your email and password</span>
       <form className="sing-up-form" onSubmit={handleSubmit}>
         <FormInput
           type="text"

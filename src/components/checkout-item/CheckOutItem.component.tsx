@@ -6,7 +6,7 @@ import {
   removeItem,
 } from "../../redux/cart/cartActions";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
-import "./checkout.style.scss";
+import styles from "./checkout.module.scss";
 import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
 
 export interface ICheckOutItem {
@@ -18,23 +18,23 @@ const CheckOutItem: React.FC<
 > = ({ cartItem, clearItemFromCart, addItem, removeItem }): JSX.Element => {
   const { name, price, imageUrl, quantity } = cartItem;
   return (
-    <div className="checkout-item">
-      <div className="image-container">
+    <div className={styles.checkoutItem}>
+      <div className={styles.imageContainer}>
         <img alt="item" src={imageUrl} />
       </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={() => removeItem(cartItem)}>
+      <span className={styles.name}>{name}</span>
+      <span className={styles.quantity}>
+        <div className={styles.arrow} onClick={() => removeItem(cartItem)}>
           &#10094;
         </div>
-        <span className="value">{quantity}</span>
-        <div className="arrow" onClick={() => addItem(cartItem)}>
+        <span className={styles.value}>{quantity}</span>
+        <div className={styles.arrow} onClick={() => addItem(cartItem)}>
           &#10095;
         </div>
       </span>
-      <span className="price">{price}</span>
+      <span className={styles.price}>{price}</span>
       <div
-        className="remove-button"
+        className={styles.removeButton}
         onClick={() => clearItemFromCart(cartItem)}
       >
         &#10005;

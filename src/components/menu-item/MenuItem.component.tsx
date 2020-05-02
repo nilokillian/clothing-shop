@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { IMenuItemProps } from "../../interfaces-and-types/menu/IMenu";
 
-import "./menuItem.style.scss";
+import styles from "./menuItem.module.scss";
 
 const MenuItem: React.FC<IMenuItemProps & RouteComponentProps> = ({
   item,
@@ -11,16 +11,16 @@ const MenuItem: React.FC<IMenuItemProps & RouteComponentProps> = ({
 }) => {
   return (
     <div
-      className={`${item.size} menu-item`}
+      className={`${item.size} ${styles.item}`}
       onClick={() => history.push(`${match.url}${item.linkUrl}`)}
     >
       <div
-        className="background-image"
+        className={styles.backgroundImage}
         style={{ backgroundImage: `url(${item.imageUrl})` }}
       />
-      <div className="content ">
-        <h1 className="title">{item.title.toUpperCase()}</h1>
-        <span className="subtitle">SHOP NOW </span>
+      <div className={styles.content}>
+        <h1 className={styles.title}>{item.title.toUpperCase()}</h1>
+        <span className={styles.subTitle}>SHOP NOW </span>
       </div>
     </div>
   );

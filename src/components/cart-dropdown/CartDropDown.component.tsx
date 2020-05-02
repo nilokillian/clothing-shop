@@ -9,7 +9,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 
-import "./cartDropDown.style.scss";
+import styles from "./cartDropDown.module.scss";
 import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
 import { toggleCartHidden } from "../../redux/cart/cartActions";
 
@@ -23,14 +23,14 @@ const CartDropDown: React.FC<
     DispatchProp<ICartReducerAction>
 > = ({ cartItems, history, dispatch }): JSX.Element => {
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <div className={styles.container}>
+      <div className={styles.cartItems}>
         {cartItems.length ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} {...cartItem} />
           ))
         ) : (
-          <span className="empty-message ">Your cart is empty</span>
+          <span className={styles.emptyMessage}>Your cart is empty</span>
         )}
       </div>
       <CustomButton
