@@ -1,6 +1,8 @@
 import firebase, { User } from "firebase/app";
+
 import "firebase/firebase-firestore";
 import "firebase/auth";
+import { ICollection } from "../interfaces-and-types/collection/ICollection";
 
 const config = {
   apiKey: "AIzaSyAzQeJISrO3rcRJJykiSdAvdh6kjEnr928",
@@ -38,6 +40,47 @@ export const createUserProfileDocument = async (
   }
 
   return userRef;
+};
+
+export const addCollectionAndDocuments = async (
+  collectionKey: string,
+  objectsToAdd: Pick<ICollection, "title" | "items">[]
+): Promise<void> => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((object) => {
+    //gives new empty docRef and generates new id
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, object);
+  });
+
+  return await batch.commit();
+};
+
+export const converCollectionsSnapShotToMap = (
+  collections: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      id: doc.id,
+      routeName: encodeURI(title).toLowerCase(),
+      title,
+      items,
+    } as ICollection;
+  });
+
+  return transformedCollection.reduce(
+    (accumulator: { [key: string]: ICollection }, coolection) => {
+      accumulator[coolection.title.toLowerCase()] = coolection;
+
+      return accumulator;
+    },
+    {}
+  );
 };
 
 firebase.initializeApp(config);

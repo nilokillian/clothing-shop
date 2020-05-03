@@ -5,12 +5,10 @@ import { setCurrentUser } from "./redux/user/userActions";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/userSelectors";
 import { Route, Switch, Redirect } from "react-router-dom";
-
 import HomePage from "./pages/home-page/HomePage.component";
 import ShopPage from "./pages/shop-page/ShopPage.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/SignInAndSignUp.component";
 import CheckOutPage from "./pages/check-out-page/CheckOut.component";
-
 import Header from "./components/header/Header.component";
 
 import { IUser, IUserReducerAction } from "./interfaces-and-types/user/IUser";

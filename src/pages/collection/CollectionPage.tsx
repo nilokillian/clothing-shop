@@ -11,22 +11,27 @@ interface MatchParams {
   collectionId: string;
 }
 
-type ShopPageStateToProps = { collection: ICollection };
+type ShopPageStateToProps = { collection: ICollection | null };
+
 const CollectionPage: React.FC<
   RouteComponentProps<MatchParams> & ShopPageStateToProps
-> = ({ collection }): JSX.Element => {
-  const { title, items } = collection;
+> = ({ collection }): JSX.Element | null => {
+  if (collection) {
+    const { title, items } = collection;
 
-  return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>{title}</h2>
-      <div className={styles.items}>
-        {items.map((item) => (
-          <CollectionItem key={item.id} item={item} />
-        ))}
+    return (
+      <div className={styles.container}>
+        <h2 className={styles.title}>{title}</h2>
+        <div className={styles.items}>
+          {items.map((item) => (
+            <CollectionItem key={item.id} item={item} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return null;
 };
 
 const mapStateToProps: MapStateToProps<

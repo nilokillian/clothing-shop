@@ -15,7 +15,7 @@ export interface IItemCart {
 }
 
 export interface ICollections {
-  collections: { [key: string]: ICollection };
+  collections: { [key: string]: ICollection } | null;
 }
 
 export interface ICollectionsForPreview {
@@ -23,7 +23,7 @@ export interface ICollectionsForPreview {
 }
 
 export interface ICollection {
-  id: number;
+  id: number | string;
   title: string;
   routeName: string;
   items: IItemCollection[];
