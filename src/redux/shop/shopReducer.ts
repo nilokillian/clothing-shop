@@ -1,25 +1,37 @@
-// import { SHOP_DATA } from "../../pages/shop-page/mockData";
 import {
   ShopActionTypes,
-  IShopReducerAction,
+  IShopActions,
 } from "../../interfaces-and-types/shop/IShop";
 import { ICollections } from "../../interfaces-and-types/collection/ICollection";
 
 const INITIAL_STATE: ICollections = {
   collections: null,
+  isFetching: false,
+  errorMessage: undefined,
 };
 
 export const shopReducer = (
   state = INITIAL_STATE,
-  action: IShopReducerAction
+  action: IShopActions
 ): ICollections => {
   switch (action.type) {
-    case ShopActionTypes.UPDATE_COLLECTIONS:
+    case ShopActionTypes.FETCH_COLLECTIONS_START:
       return {
         ...state,
-        collections: action.payload!,
+        isFetching: true,
       };
-
+    case ShopActionTypes.FETCH_COLLECTIONS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        collections: action.payload,
+      };
+    case ShopActionTypes.FETCH_COLLECTIONS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.payload,
+      };
     default:
       return state;
   }

@@ -16,22 +16,18 @@ type ShopPageStateToProps = { collection: ICollection | null };
 const CollectionPage: React.FC<
   RouteComponentProps<MatchParams> & ShopPageStateToProps
 > = ({ collection }): JSX.Element | null => {
-  if (collection) {
-    const { title, items } = collection;
+  const { title, items } = collection!;
 
-    return (
-      <div className={styles.container}>
-        <h2 className={styles.title}>{title}</h2>
-        <div className={styles.items}>
-          {items.map((item) => (
-            <CollectionItem key={item.id} item={item} />
-          ))}
-        </div>
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>{title}</h2>
+      <div className={styles.items}>
+        {items.map((item) => (
+          <CollectionItem key={item.id} item={item} />
+        ))}
       </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 };
 
 const mapStateToProps: MapStateToProps<

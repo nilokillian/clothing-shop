@@ -1,52 +1,47 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import { connect, MapDispatchToProps } from "react-redux";
-import CollectionsOverview from "../../components/collections-overview/CollectionsOverview.component";
-import { Route, useRouteMatch } from "react-router-dom";
-import CollectionPage from "../collection/CollectionPage";
-import {
-  firestore,
-  converCollectionsSnapShotToMap,
-} from "../../firebase/firebase.utils";
-import { updateCollections } from "../../redux/shop/shopActions";
-import { Dispatch } from "redux";
-import { IShopReducerAction } from "../../interfaces-and-types/shop/IShop";
-import { ICollection } from "../../interfaces-and-types/collection/ICollection";
+import { Route, RouteComponentProps } from "react-router-dom";
 
-export interface IShopPageStateToProps {
-  updateCollections: (colectionsMap: { [key: string]: ICollection }) => void;
+import { fetchCollectionsStartAsync } from "../../redux/shop/shopActions";
+import { IRoot } from "../../interfaces-and-types/redux/IRedux";
+import { ThunkDispatch } from "redux-thunk";
+import { IShopActions } from "../../interfaces-and-types/shop/IShop";
+import CollectionsOverviewContainer from "../../components/collections-overview/CollectionsOverviewContainer";
+import CollectionPageContainer from "../collection-page/CollectionPageContainer";
+
+type ShopPageProps = ConnectedShopPageMapDispatchToProps & RouteComponentProps;
+
+class ShopPage extends Component<ShopPageProps, {}> {
+  public componentDidMount() {
+    this.props.fetchCollectionsStartAsync();
+  }
+
+  public render() {
+    return (
+      <div className="page-preview">
+        <Route
+          exact
+          path={`${this.props.match.path}`}
+          component={CollectionsOverviewContainer}
+        />
+        <Route
+          path={`${this.props.match.path}/:collectionId`}
+          component={CollectionPageContainer}
+        />
+      </div>
+    );
+  }
 }
 
-const ShopPage: React.FC<IShopPageStateToProps> = ({
-  updateCollections,
-}): JSX.Element => {
-  const match = useRouteMatch();
-
-  useEffect(() => {
-    const unsubscribeFromSnapShot = null;
-
-    const collectionRef = firestore.collection("collections");
-
-    collectionRef.onSnapshot(async (snapShot) => {
-      const collectionsMap = converCollectionsSnapShotToMap(snapShot);
-      updateCollections(collectionsMap);
-      //console.log("collectionsMap", collectionsMap);
-    });
-    return () => {};
-  }, [updateCollections]);
-
-  return (
-    <div className="page-preview">
-      <Route exact path={`${match.path}`} component={CollectionsOverview} />
-      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
-    </div>
-  );
+type ConnectedShopPageMapDispatchToProps = {
+  fetchCollectionsStartAsync: () => void;
 };
 
-const mapDispatchToProps: MapDispatchToProps<IShopPageStateToProps, {}> = (
-  dispatch: Dispatch<IShopReducerAction>
-) => ({
-  updateCollections: (colectionsMap: { [key: string]: ICollection }) =>
-    dispatch(updateCollections(colectionsMap)),
+const mapDispatchToProps: MapDispatchToProps<
+  ConnectedShopPageMapDispatchToProps,
+  RouteComponentProps
+> = (dispatch: ThunkDispatch<IRoot, void, IShopActions>) => ({
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);

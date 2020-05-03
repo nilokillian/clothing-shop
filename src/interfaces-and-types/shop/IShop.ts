@@ -1,10 +1,25 @@
 import { ICollection } from "../collection/ICollection";
 
 export enum ShopActionTypes {
-  UPDATE_COLLECTIONS = "UPDATE_COLLECTIONS",
+  FETCH_COLLECTIONS_START = "FETCH_COLLECTIONS_START",
+  FETCH_COLLECTIONS_SUCCESS = "FETCH_COLLECTIONS_SUCCESS",
+  FETCH_COLLECTIONS_FAILURE = "FETCH_COLLECTIONS_FAILURE ",
 }
 
-export interface IShopReducerAction {
-  type: ShopActionTypes;
-  payload?: { [key: string]: ICollection };
-}
+export type IFetchCollectionStartAction = {
+  type: ShopActionTypes.FETCH_COLLECTIONS_START;
+};
+export type IFetchCollectionSuccessAction = {
+  type: ShopActionTypes.FETCH_COLLECTIONS_SUCCESS;
+  payload: { [key: string]: ICollection };
+};
+
+export type IFetchCollectionFailureAction = {
+  type: ShopActionTypes.FETCH_COLLECTIONS_FAILURE;
+  payload: string;
+};
+
+export type IShopActions =
+  | IFetchCollectionStartAction
+  | IFetchCollectionSuccessAction
+  | IFetchCollectionFailureAction;

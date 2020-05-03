@@ -16,6 +16,8 @@ export interface IItemCart {
 
 export interface ICollections {
   collections: { [key: string]: ICollection } | null;
+  isFetching: boolean;
+  errorMessage: string | undefined;
 }
 
 export interface ICollectionsForPreview {

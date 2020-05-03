@@ -1,9 +1,48 @@
-import { ShopActionTypes } from "../../interfaces-and-types/shop/IShop";
+import { Dispatch } from "redux";
+import {
+  ShopActionTypes,
+  IShopActions,
+  IFetchCollectionStartAction,
+  IFetchCollectionSuccessAction,
+  IFetchCollectionFailureAction,
+} from "../../interfaces-and-types/shop/IShop";
 import { ICollection } from "../../interfaces-and-types/collection/ICollection";
+import {
+  firestore,
+  converCollectionsSnapShotToMap,
+} from "../../firebase/firebase.utils";
 
-export const updateCollections = (collectionsMap: {
+const fetchCollectionsStart = (): IFetchCollectionStartAction => ({
+  type: ShopActionTypes.FETCH_COLLECTIONS_START,
+});
+
+const fetchCollectionsSuccess = (collectionsMap: {
   [key: string]: ICollection;
-}) => ({
-  type: ShopActionTypes.UPDATE_COLLECTIONS,
+}): IFetchCollectionSuccessAction => ({
+  type: ShopActionTypes.FETCH_COLLECTIONS_SUCCESS,
   payload: collectionsMap,
 });
+
+const fetchCollectionsFailure = (
+  errorMessage: string
+): IFetchCollectionFailureAction => ({
+  type: ShopActionTypes.FETCH_COLLECTIONS_FAILURE,
+  payload: errorMessage,
+});
+
+export const fetchCollectionsStartAsync = () => {
+  return (dispatch: Dispatch<IShopActions>) => {
+    const collectionRef = firestore.collection("collections");
+    dispatch(fetchCollectionsStart());
+
+    collectionRef
+      .get()
+      .then((snapShot) => {
+        const collectionsMap = converCollectionsSnapShotToMap(snapShot);
+        dispatch(fetchCollectionsSuccess(collectionsMap));
+      })
+      .catch((error: Error) =>
+        dispatch(fetchCollectionsFailure(error.message))
+      );
+  };
+};
