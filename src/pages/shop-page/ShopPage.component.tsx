@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import { connect, MapDispatchToProps } from "react-redux";
 import { Route, RouteComponentProps } from "react-router-dom";
-
-import { fetchCollectionsStartAsync } from "../../redux/shop/shopActions";
-import { IRoot } from "../../interfaces-and-types/redux/IRedux";
-import { ThunkDispatch } from "redux-thunk";
-import { IShopActions } from "../../interfaces-and-types/shop/IShop";
 import CollectionsOverviewContainer from "../../components/collections-overview/CollectionsOverviewContainer";
 import CollectionPageContainer from "../collection-page/CollectionPageContainer";
+import { fetchCollectionsStart } from "../../redux/shop/shopActions";
+import { IShopActions } from "../../interfaces-and-types/shop/IShop";
+import { Dispatch } from "redux";
 
 type ShopPageProps = ConnectedShopPageMapDispatchToProps & RouteComponentProps;
 
 class ShopPage extends Component<ShopPageProps, {}> {
   public componentDidMount() {
-    this.props.fetchCollectionsStartAsync();
+    this.props.fetchCollectionsStart();
   }
 
   public render() {
@@ -34,14 +32,14 @@ class ShopPage extends Component<ShopPageProps, {}> {
 }
 
 type ConnectedShopPageMapDispatchToProps = {
-  fetchCollectionsStartAsync: () => void;
+  fetchCollectionsStart: () => any;
 };
 
 const mapDispatchToProps: MapDispatchToProps<
   ConnectedShopPageMapDispatchToProps,
-  RouteComponentProps
-> = (dispatch: ThunkDispatch<IRoot, void, IShopActions>) => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
+  {}
+> = (dispatch: Dispatch<IShopActions>) => ({
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);

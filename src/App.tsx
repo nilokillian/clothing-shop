@@ -1,7 +1,5 @@
-import React, { useEffect, Dispatch } from "react";
+import React, { useEffect } from "react";
 import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/user/userActions";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/userSelectors";
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -10,42 +8,24 @@ import ShopPage from "./pages/shop-page/ShopPage.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/SignInAndSignUp.component";
 import CheckOutPage from "./pages/check-out-page/CheckOut.component";
 import Header from "./components/header/Header.component";
-
-import { IUser, IUserReducerAction } from "./interfaces-and-types/user/IUser";
 import { IRoot } from "./interfaces-and-types/redux/IRedux";
 import {
   IAppStateToProps,
   ConnectedAppStateToProps,
-  ConnectedAppDispatchToProps,
 } from "./interfaces-and-types/app/IApp";
+import { checkUserSession } from "./redux/user/userActions";
 
 import "./App.css";
+import { IUserActions } from "./interfaces-and-types/user/IUser";
+import { Dispatch } from "redux";
 
-const App: React.FC<IAppStateToProps> = ({
-  setCurrentUser,
+const App: React.FC<IAppStateToProps & ConnectedAppDispatchToProps> = ({
   currentUser,
+  checkUserSession,
 }): JSX.Element => {
   useEffect(() => {
-    const unsubscibeFromAuth = auth.onAuthStateChanged((userAuth) => {
-      if (userAuth) {
-        createUserProfileDocument(userAuth).then((userRef) => {
-          userRef?.onSnapshot((snapShot) => {
-            const userData = snapShot.data();
-            setCurrentUser({
-              id: snapShot.id,
-              ...(userData as IUser),
-            });
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
-
-    return () => {
-      unsubscibeFromAuth();
-    };
-  }, [setCurrentUser]);
+    checkUserSession();
+  }, [checkUserSession]);
 
   return (
     <div>
@@ -74,15 +54,15 @@ const mapStateToProps: MapStateToProps<
   currentUser: selectCurrentUser,
 });
 
-// const mapStateToProps: MapStateToProps<ConnectedAppStateToProps, {}, IRoot> = ({
-//   user: { currentUser },
-// }): ConnectedAppStateToProps => ({ currentUser });
+type ConnectedAppDispatchToProps = {
+  checkUserSession: () => void;
+};
 
 const mapDispatchToProps: MapDispatchToProps<
   ConnectedAppDispatchToProps,
   {}
-> = (dispatch: Dispatch<IUserReducerAction>): ConnectedAppDispatchToProps => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+> = (dispatch: Dispatch<IUserActions>): ConnectedAppDispatchToProps => ({
+  checkUserSession: () => dispatch(checkUserSession()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

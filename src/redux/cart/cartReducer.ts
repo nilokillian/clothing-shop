@@ -1,7 +1,7 @@
 import {
   ICartState,
   CartActionTypes,
-  ICartReducerAction,
+  ICartActions,
 } from "../../interfaces-and-types/cart/ICart";
 import { addItemToCart, removeItemFromCart } from "./cartUtils";
 
@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 
 export const cartReducer = (
   state: ICartState = INITIAL_STATE,
-  action: ICartReducerAction
+  action: ICartActions
 ): ICartState => {
   switch (action.type) {
     case CartActionTypes.TOGGLE_CART_HIDDEN:
@@ -38,6 +38,12 @@ export const cartReducer = (
         cartItems: state.cartItems.filter(
           (cartItem) => cartItem.id !== action.payload!.id
         ),
+      };
+
+    case CartActionTypes.CLEAR_CART:
+      return {
+        ...state,
+        cartItems: [],
       };
 
     default:

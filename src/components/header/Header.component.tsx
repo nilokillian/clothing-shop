@@ -1,8 +1,7 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { Link } from "react-router-dom";
-import { auth } from "../../firebase/firebase.utils";
-import { connect, MapStateToProps } from "react-redux";
+import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 import CartIcon from "../cart-icon/CartIcon.component";
 import CartDropDown from "../cart-dropdown/CartDropDown.component";
@@ -10,10 +9,17 @@ import { IHeaderStateProps } from "../../interfaces-and-types/header/IHeader";
 import { createStructuredSelector } from "reselect";
 import { selectCartHidden } from "../../redux/cart/cartSelectors";
 import { selectCurrentUser } from "../../redux/user/userSelectors";
+import { signOutStartAction } from "../../redux/user/userActions";
 
 import styles from "./header.module.scss";
+import { Dispatch } from "redux";
+import { IUserActions } from "../../interfaces-and-types/user/IUser";
 
-const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
+const Header: React.FC<IHeaderStateProps & IHeaderDispatchToProps> = ({
+  currentUser,
+  signOutStartAction,
+  hidden,
+}) => {
   return (
     <div className={styles.container}>
       <Link className={styles.logoContainer} to="/">
@@ -27,7 +33,7 @@ const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className={styles.option} onClick={() => auth.signOut()}>
+          <div className={styles.option} onClick={() => signOutStartAction()}>
             SIGN OUT
           </div>
         ) : (
@@ -41,6 +47,16 @@ const Header: React.FC<IHeaderStateProps> = ({ currentUser, hidden }) => {
     </div>
   );
 };
+
+type IHeaderDispatchToProps = {
+  signOutStartAction: () => void;
+};
+
+const mapDispatchToProps: MapDispatchToProps<IHeaderDispatchToProps, {}> = (
+  dispatch: Dispatch<IUserActions>
+) => ({
+  signOutStartAction: () => dispatch(signOutStartAction()),
+});
 
 const mapStateToProps: MapStateToProps<
   IHeaderStateProps,
@@ -58,6 +74,7 @@ const mapStateToProps: MapStateToProps<
 //   hidden: state.cart.hidden,
 // });
 
-export default connect<IHeaderStateProps, {}, {}, IRoot>(mapStateToProps)(
-  Header
-);
+export default connect<IHeaderStateProps, IHeaderDispatchToProps, {}, IRoot>(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

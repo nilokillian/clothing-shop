@@ -6,18 +6,18 @@ export enum ShopActionTypes {
   FETCH_COLLECTIONS_FAILURE = "FETCH_COLLECTIONS_FAILURE ",
 }
 
-export type IFetchCollectionStartAction = {
+export interface IFetchCollectionStartAction {
   type: ShopActionTypes.FETCH_COLLECTIONS_START;
-};
-export type IFetchCollectionSuccessAction = {
+}
+export interface IFetchCollectionSuccessAction {
   type: ShopActionTypes.FETCH_COLLECTIONS_SUCCESS;
   payload: { [key: string]: ICollection };
-};
+}
 
-export type IFetchCollectionFailureAction = {
+export interface IFetchCollectionFailureAction {
   type: ShopActionTypes.FETCH_COLLECTIONS_FAILURE;
   payload: string;
-};
+}
 
 export type IShopActions =
   | IFetchCollectionStartAction

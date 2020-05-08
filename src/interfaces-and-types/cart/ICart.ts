@@ -10,12 +10,38 @@ export enum CartActionTypes {
   ADD_ITEM = "ADD_ITEM",
   REMOVE_ITEM = "REMOVE_ITEM",
   CLEAR_ITEM_FROM_CART = "CLEAR_ITEM_FROM_CART",
+  CLEAR_CART = "CLEAR_CART",
 }
 
-export interface ICartReducerAction {
-  type: CartActionTypes;
-  payload?: IItemCollection;
-}
+type IAddItemAction = {
+  type: CartActionTypes.ADD_ITEM;
+  payload: IItemCollection;
+};
+
+type IRemoveItemAction = {
+  type: CartActionTypes.REMOVE_ITEM;
+  payload: IItemCollection;
+};
+
+type IClearCartAction = {
+  type: CartActionTypes.CLEAR_CART;
+};
+
+type IClearItemFromCartAction = {
+  type: CartActionTypes.CLEAR_ITEM_FROM_CART;
+  payload: IItemCollection;
+};
+
+type IToggleCartHiddenAction = {
+  type: CartActionTypes.TOGGLE_CART_HIDDEN;
+};
+
+export type ICartActions =
+  | IClearCartAction
+  | IClearItemFromCartAction
+  | IToggleCartHiddenAction
+  | IAddItemAction
+  | IRemoveItemAction;
 
 export interface ICartActionTypes {
   hidden: boolean;

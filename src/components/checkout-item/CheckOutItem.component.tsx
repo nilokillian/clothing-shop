@@ -7,7 +7,7 @@ import {
 } from "../../redux/cart/cartActions";
 import { IItemCollection } from "../../interfaces-and-types/collection/ICollection";
 import styles from "./checkout.module.scss";
-import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
+import { ICartActions } from "../../interfaces-and-types/cart/ICart";
 
 export interface ICheckOutItem {
   cartItem: IItemCollection;
@@ -54,7 +54,7 @@ const mapDispatchToProps: MapDispatchToProps<
   ConnectedCheckOutItemDispatchToProps,
   ConnectedCheckOutOwnStateToProps
 > = (
-  dispatch: Dispatch<ICartReducerAction>
+  dispatch: Dispatch<ICartActions>
 ): ConnectedCheckOutItemDispatchToProps => ({
   clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
   addItem: (item) => dispatch(addItem(item)),

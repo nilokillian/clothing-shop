@@ -10,7 +10,7 @@ import { IItemCollection } from "../../interfaces-and-types/collection/ICollecti
 import { IRoot } from "../../interfaces-and-types/redux/IRedux";
 
 import styles from "./cartDropDown.module.scss";
-import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
+import { ICartActions } from "../../interfaces-and-types/cart/ICart";
 import { toggleCartHidden } from "../../redux/cart/cartActions";
 
 interface CartDropDownStateProps {
@@ -18,9 +18,7 @@ interface CartDropDownStateProps {
 }
 
 const CartDropDown: React.FC<
-  CartDropDownStateProps &
-    RouteComponentProps &
-    DispatchProp<ICartReducerAction>
+  CartDropDownStateProps & RouteComponentProps & DispatchProp<ICartActions>
 > = ({ cartItems, history, dispatch }): JSX.Element => {
   return (
     <div className={styles.container}>

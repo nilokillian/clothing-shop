@@ -9,7 +9,7 @@ import {
 } from "../../interfaces-and-types/collection/ICollection";
 import { addItem } from "../../redux/cart/cartActions";
 import styles from "./collectionItem.module.scss";
-import { ICartReducerAction } from "../../interfaces-and-types/cart/ICart";
+import { ICartActions } from "../../interfaces-and-types/cart/ICart";
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ item, addItem }) => {
   const { imageUrl, name, price } = item;
@@ -38,7 +38,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, addItem }) => {
 const mapDispatchToProps: MapDispatchToProps<
   CollectionItemDispatchProps,
   CollectionItemOwnProps
-> = (dispatch: Dispatch<ICartReducerAction>) => ({
+> = (dispatch: Dispatch<ICartActions>) => ({
   addItem: (item) => dispatch(addItem(item)),
 });
 
